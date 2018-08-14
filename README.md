@@ -21,7 +21,7 @@ WS 2 :
 URL :
   /top/{countReturn}
 Details:
-  This WS doesnt need any post body, but rather it takes the param as a path variable from the rest URL. The path variable passed is an integer that is used to identify the number of words that the WS should return that are the top occurences in the file.
+  This WS doesnt need any post body, but rather it takes the param as a path variable from the rest URL. The path variable passed is an integer that is used to identify the number of words that the WS should return that are the top occurences in the file. The response is sent back as a CSV file that if using a browser it will be downloaded OR if using curl OR postman then it will be passes as text/plain response.
 
 Example Response:
   eget|17
