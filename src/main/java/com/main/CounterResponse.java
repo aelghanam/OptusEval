@@ -27,9 +27,9 @@ public class CounterResponse {
 	private JSONArray counts = new JSONArray();
 
 	public CounterResponse() {
-		
+
 	}
-	
+
 	public CounterResponse(ArrayList<String> searchText) {
 		File file = null;
 		try {
@@ -64,21 +64,20 @@ public class CounterResponse {
 
 	private static Map<String, Integer> countWords = new TreeMap<String, Integer>();
 
-
 	public static List<Entry<String, Integer>> getTop(int topMuch) {
-		File file=null;
+		File file = null;
 		try {
 			file = new ClassPathResource("lorem.txt").getFile();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		try (final Stream<String> lines = Files.lines(Paths.get(file.getPath()))
-				.map(line -> line.split("[\\s]+")).flatMap(Arrays::stream).distinct().sorted()) {
+		try (final Stream<String> lines = Files.lines(Paths.get(file.getPath())).map(line -> line.split("[\\s]+"))
+				.flatMap(Arrays::stream).distinct().sorted()) {
 			List<String> uniqueWords = new ArrayList<>();
-			uniqueWords=lines.collect(Collectors.toList());
+			uniqueWords = lines.collect(Collectors.toList());
 			for (int i = 0; i < uniqueWords.size(); i++) {
-				countWords.put(uniqueWords.get(i),countWord(uniqueWords.get(i),file));
+				countWords.put(uniqueWords.get(i), countWord(uniqueWords.get(i), file));
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -89,11 +88,10 @@ public class CounterResponse {
 		}
 
 		Set<Entry<String, Integer>> set = countWords.entrySet();
-        List<Entry<String, Integer>> list = new ArrayList<Entry<String, Integer>>(set);
-		Collections.sort( list, new Comparator<Map.Entry<String, Integer>>()
-		{
-			public int compare( Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2 ){
-				return (o2.getValue()).compareTo( o1.getValue() );
+		List<Entry<String, Integer>> list = new ArrayList<Entry<String, Integer>>(set);
+		Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+			public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+				return (o2.getValue()).compareTo(o1.getValue());
 			};
 		});
 		return list.subList(0, topMuch);
